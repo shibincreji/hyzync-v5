@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { cosmic } from "@/cosmic/client";
 import { MobileNav } from "./MobileNav";
-import { AuthButtons } from "../user-management/AuthButtons";
 
 export type ItemType = {
   title: string;
@@ -28,7 +27,7 @@ export async function NavMenu({
   return (
     <div className={className}>
       {/* Desktop */}
-      <div className={hasMobileMenu ? "md:flex items-center gap-4 hidden" : ""}>
+      <div className={hasMobileMenu ? "hidden md:block" : ""}>
         {nav.metadata.items.map((item: ItemType) => {
           return (
             <Link
@@ -41,7 +40,6 @@ export async function NavMenu({
             </Link>
           );
         })}
-        {hasMobileMenu && <AuthButtons />}
       </div>
       {/* Mobile */}
       {hasMobileMenu && <MobileNav items={nav.metadata.items} />}

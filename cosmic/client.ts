@@ -5,7 +5,4 @@ export const cosmic = createBucketClient({
   bucketSlug: process.env.COSMIC_BUCKET_SLUG || "COSMIC_BUCKET_SLUG",
   readKey: process.env.COSMIC_READ_KEY || "COSMIC_READ_KEY",
   writeKey: process.env.COSMIC_WRITE_KEY || "COSMIC_WRITE_KEY",
-  apiEnvironment:
-    (process.env.COSMIC_API_ENVIRONMENT as "production" | "staging") ||
-    "production",
 });
