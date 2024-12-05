@@ -8,11 +8,23 @@ const nextConfig = {
   async headers() {
     return [
       {
-        source: "/(.*)",
+        source: "/(.*)", // Match all routes
         headers: [
           {
             key: "X-Forwarded-Host",
-            value: "hyzync-v5.netlify.app", // Use your Netlify domain here
+            value: "hyzync-v5.netlify.app", // Ensure this matches your Netlify domain
+          },
+          {
+            key: "Access-Control-Allow-Origin",
+            value: "*", // Allow all origins (adjust based on your requirements)
+          },
+          {
+            key: "Access-Control-Allow-Methods",
+            value: "GET, POST, OPTIONS", // Allow these HTTP methods
+          },
+          {
+            key: "Access-Control-Allow-Headers",
+            value: "Content-Type, Authorization", // Allow necessary headers
           },
         ],
       },

@@ -1,6 +1,19 @@
 [build]
 command = "npm install --force && npm run build"
 publish = ".next"
+functions = "netlify/functions" # Specify the directory for server functions if applicable.
 
 [[plugins]]
 package = "@netlify/plugin-nextjs"
+
+[context.production.environment]
+  COSMIC_BUCKET_SLUG = "hyzync-production"
+  COSMIC_READ_KEY = "ky0XVp3Y7rvHETQf3YkqAd0fcEwohNvpwR5O3Pre05QcUuRUlO"
+  COSMIC_WRITE_KEY = "9eeUpo2U2Kj3K46TfrdGd9LCR3S8l4K9qO4VgoLcQYdlbCcUeA"
+  RESEND_API_KEY = "re_dyuNCsXR_FFQGCHRgLB3PWFrbz3FRPwFW"
+  CONTACT_EMAIL = "info@hyzync.com"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Forwarded-Host = "hyzync-v5.netlify.app" # Ensure this matches your Netlify domain.
