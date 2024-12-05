@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/next"
+    }
+  ],
+  "env": {
+    "COSMIC_BUCKET_SLUG": "hyzync-production",
+    "COSMIC_READ_KEY": "ky0XVp3Y7rvHETQf3YkqAd0fcEwohNvpwR5O3Pre05QcUuRUlO",
+    "COSMIC_WRITE_KEY": "9eeUpo2U2Kj3K46TfrdGd9LCR3S8l4K9qO4VgoLcQYdlbCcUeA",
+    "RESEND_API_KEY": "re_dyuNCsXR_FFQGCHRgLB3PWFrbz3FRPwFW",
+    "CONTACT_EMAIL": "info@hyzync.com"
+  },
+  "buildCommand": "npm install --force && npm run build"
+}
