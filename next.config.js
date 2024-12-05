@@ -1,7 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
-    serverActions: true,
+    serverActions: {
+      validateHeaders: false, // Disable strict header validation for Server Actions
+    },
   },
   async headers() {
     return [
@@ -10,7 +12,7 @@ const nextConfig = {
         headers: [
           {
             key: "X-Forwarded-Host",
-            value: "hyzync-v5.netlify.app", // Ensure it matches your Netlify domain
+            value: "hyzync-v5.netlify.app", // Ensure this matches your Netlify domain
           },
         ],
       },
