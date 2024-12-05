@@ -5,10 +5,6 @@ import { Resend } from "resend";
 
 const RESEND_KEY = process.env.RESEND_API_KEY;
 const CONTACT_EMAIL = process.env.CONTACT_EMAIL || "info@hyzync.com";
-
-console.log("RESEND_API_KEY:", RESEND_KEY ? "Loaded" : "Not Loaded");
-console.log("CONTACT_EMAIL:", CONTACT_EMAIL ? "Loaded" : "Not Loaded");
-
 const resend = new Resend(RESEND_KEY);
 
 export type AddSubmissionType = {
@@ -22,10 +18,9 @@ export type AddSubmissionType = {
 };
 
 export async function addSubmission(comment: AddSubmissionType) {
-  try {
-    console.log("Attempting to add submission:", comment);
+  const { metadata: metadata, title } = comment;
 
-    const { metadata, title } = comment;
+  try {
     const data = await cosmic.objects.insertOne(comment);
 
     const submitterSubject = `Form submission received`;
@@ -40,7 +35,7 @@ export async function addSubmission(comment: AddSubmissionType) {
       A representative will be in touch with you soon.
     `;
 
-    console.log("Sending confirmation email to submitter...");
+    // Send confirmation email
     await sendEmail({
       to: metadata.email,
       from: CONTACT_EMAIL,
@@ -58,7 +53,7 @@ export async function addSubmission(comment: AddSubmissionType) {
       Message: ${metadata.message}<br/>
     `;
 
-    console.log("Sending admin notification...");
+    // Send email to admin
     await sendEmail({
       to: CONTACT_EMAIL,
       from: CONTACT_EMAIL,
@@ -67,10 +62,13 @@ export async function addSubmission(comment: AddSubmissionType) {
       html: adminHTML,
     });
 
-    console.log("Submission successfully processed!");
     return data;
   } catch (err) {
-    console.error("Error in addSubmission:", err.message || err);
+    if (err instanceof Error) {
+      console.error("Error in addSubmission:", err.message);
+    } else {
+      console.error("Error in addSubmission:", err);
+    }
     throw err;
   }
 }
@@ -96,13 +94,13 @@ async function sendEmail({
       html,
       replyTo: reply_to,
     });
-    console.log("Email sent successfully:", data);
     return data;
   } catch (err) {
-    console.error(
-      "Error sending email:",
-      err.response?.data || err.message || err
-    );
+    if (err instanceof Error) {
+      console.error("Error in sendEmail:", err.message);
+    } else {
+      console.error("Error in sendEmail:", err);
+    }
     throw err;
   }
 }
