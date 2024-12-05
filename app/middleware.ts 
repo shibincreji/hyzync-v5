@@ -1,0 +1,13 @@
+import { NextRequest, NextResponse } from "next/server";
+
+export function middleware(req: NextRequest) {
+  const url = req.nextUrl.clone();
+  const host = req.headers.get("x-forwarded-host") || req.headers.get("host");
+
+  // Force X-Forwarded-Host to match the deployed domain
+  if (host && host !== "hyzync-v5.netlify.app") {
+    req.headers.set("x-forwarded-host", "hyzync-v5.netlify.app");
+  }
+
+  return NextResponse.next();
+}

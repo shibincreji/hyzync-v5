@@ -1,7 +1,7 @@
 [build]
 command = "npm install --force && npm run build"
 publish = ".next"
-functions = "netlify/functions" # Specify the directory for server functions if applicable.
+functions = "netlify/functions"
 
 [[plugins]]
 package = "@netlify/plugin-nextjs"
@@ -16,4 +16,4 @@ package = "@netlify/plugin-nextjs"
 [[headers]]
   for = "/*"
   [headers.values]
-    X-Forwarded-Host = "hyzync-v5.netlify.app" # Ensure this matches your Netlify domain.
+    X-Forwarded-Host = "hyzync-v5.netlify.app"
