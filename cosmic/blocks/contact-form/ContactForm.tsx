@@ -1,33 +1,33 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { CheckCircle, Loader2, XCircle } from "lucide-react"
-import { cn } from "@/cosmic/utils"
+import { useState } from "react";
+import { CheckCircle, Loader2, XCircle } from "lucide-react";
+import { cn } from "@/cosmic/utils";
 
-import { Button } from "@/cosmic/elements/Button"
-import { Input } from "@/cosmic/elements/Input"
-import { Label } from "@/cosmic/elements/Label"
-import { Textarea } from "@/cosmic/elements/TextArea"
+import { Button } from "@/cosmic/elements/Button";
+import { Input } from "@/cosmic/elements/Input";
+import { Label } from "@/cosmic/elements/Label";
+import { Textarea } from "@/cosmic/elements/TextArea";
 import {
   addSubmission,
   AddSubmissionType,
-} from "@/cosmic/blocks/contact-form/actions"
+} from "@/cosmic/blocks/contact-form/actions";
 
 export function ContactForm({ className }: { className?: string }) {
-  const [name, setName] = useState("")
-  const [email, setEmail] = useState("")
-  const [company, setCompany] = useState("")
-  const [message, setMessage] = useState("")
-  const [submitting, setSubmitting] = useState(false)
-  const [sumbitted, setSubmitted] = useState(false)
-  const [error, setError] = useState(false)
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [company, setCompany] = useState("");
+  const [message, setMessage] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [sumbitted, setSubmitted] = useState(false);
+  const [error, setError] = useState(false);
   async function handleSubmitComment(e: React.SyntheticEvent) {
-    setError(false)
-    setSubmitting(true)
+    setError(false);
+    setSubmitting(true);
     if (!name.trim() || !email.trim() || !message.trim()) {
-      setSubmitting(false)
-      setError(true)
-      return
+      setSubmitting(false);
+      setError(true);
+      return;
     }
     const newSubmission: AddSubmissionType = {
       type: "form-submissions",
@@ -37,45 +37,45 @@ export function ContactForm({ className }: { className?: string }) {
         company,
         message,
       },
-    }
+    };
     try {
-      const res = await addSubmission(newSubmission)
+      const res = await addSubmission(newSubmission);
       if (!res.object) {
-        setSubmitting(false)
-        setError(true)
-        return
+        setSubmitting(false);
+        setError(true);
+        return;
       } else {
-        setSubmitting(false)
-        setSubmitted(true)
+        setSubmitting(false);
+        setSubmitted(true);
         setTimeout(() => {
-          setSubmitted(false)
-          setName("")
-          setEmail("")
-          setCompany("")
-          setMessage("")
-        }, 3000)
+          setSubmitted(false);
+          setName("");
+          setEmail("");
+          setCompany("");
+          setMessage("");
+        }, 3000);
       }
     } catch (err) {
-      setSubmitting(false)
-      setError(true)
-      return
+      setSubmitting(false);
+      setError(true);
+      return;
     }
   }
   function handleChangeName(e: React.SyntheticEvent) {
-    const target = e.target as HTMLInputElement
-    setName(target.value)
+    const target = e.target as HTMLInputElement;
+    setName(target.value);
   }
   function handleChangeEmail(e: React.SyntheticEvent) {
-    const target = e.target as HTMLInputElement
-    setEmail(target.value)
+    const target = e.target as HTMLInputElement;
+    setEmail(target.value);
   }
   function handleChangeCompany(e: React.SyntheticEvent) {
-    const target = e.target as HTMLInputElement
-    setCompany(target.value)
+    const target = e.target as HTMLInputElement;
+    setCompany(target.value);
   }
   function handleChangeMessage(e: React.SyntheticEvent) {
-    const target = e.target as HTMLInputElement
-    setMessage(target.value)
+    const target = e.target as HTMLInputElement;
+    setMessage(target.value);
   }
   return (
     <div className={cn("mb-8", className)}>
@@ -148,5 +148,5 @@ export function ContactForm({ className }: { className?: string }) {
         </>
       )}
     </div>
-  )
+  );
 }
